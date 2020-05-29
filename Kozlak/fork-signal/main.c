@@ -31,20 +31,21 @@ int main(int argc, char *argv[])
     int sleep_time = atoi(argv[1]);
     sleep(sleep_time);
     
-    status = waitpid(child, NULL, WNOHANG);
-    
-    if(status == 0){
-        // child not finished
+    // child not finished
+    if(waitpid(child, &status, WNOHANG) == 0){
+
+        // send kill
         if(kill(child, SIGTERM) < 0){
+            // if kill failed return error
             perror("signal fail");
             exit(EXIT_FAILURE);
         }
+        // child terminated with kill
         printf("Proces %d zakończony sygnałem\n", child);
     }
-
     else{
         //child exited on it's own
-        printf("Proces %d zakończony przez exit\n", child);
+        printf("Proces %d zakończony przez exit %d\n", child, WEXITSTATUS(status));
     }    
 
  } //else
