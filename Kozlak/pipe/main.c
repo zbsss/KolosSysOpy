@@ -23,15 +23,14 @@ int main(int argc, char* argv[]) {
     * przekieruj deskryptor deskryptor wejścia standardowego na deskryptor końca do odczytu tego potoku,
     * wykonaj  tr a-z A-Z, w przypadku błędu  obsłuż go i wyjdź, zwracając 3.
    */
-
-
-
-
-
-
-
+  		close(pdesk[1]);
+		dup2(pdesk[0], STDIN_FILENO); // to co jest w pipe idzie in  STDIN
+		execlp("tr","tr","a-z","A-Z", NULL);
+		perror("EXECLP tr");
+		exit(3);
+		
    /* koniec */
-       	 }
+		}
 	}
    return 0;
    }
