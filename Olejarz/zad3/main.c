@@ -24,11 +24,12 @@ int main(int argc, char* argv[]) {
     * wykonaj  tr "a-z" "A-Z", w przypadku błędu  obsłuż go i wyjdź, zwracając 3.
    */
 
+  		close(pdesk[1]);
+		dup2(pdesk[0], STDIN_FILENO); // to co jest w pipe idzie na STDIN procesu macierzystego
 
-
-
-
-
+		execlp("tr", "tr", "a-z", "A-Z", NULL);
+		perror("EXECLP tr");
+		exit(3);
 
    /* koniec */
        	 }
