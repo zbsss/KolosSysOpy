@@ -1,7 +1,8 @@
 CFLAGS = -Wall
 CC = gcc -pthread
 
-main: zad1.o
+main: 
+	$(CC) -o zad1 zad1.c $(CFLAGS) 
 
 clean:
 	rm -f ./zad1.o ./zad1

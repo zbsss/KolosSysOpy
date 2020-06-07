@@ -52,9 +52,12 @@ reserveSem(int semId, int semNum)
     struct sembuf sops;
 
     /* Ustaw odpowiednie pola struktury sops i wykonaj 
-       operacje na semaforze semid*/
+       operacje na semaforze semId*/
+    sops.sem_num = semId;
+    sops.sem_op = -1;
+    sops.sem_flg = 0;
 
-    return 0;
+    return semop(semId, &sops, 1);
 }
 
 int     /* Operacja V */
@@ -63,11 +66,10 @@ releaseSem(int semId, int semNum)
     struct sembuf sops;
      /* Ustaw odpowiednie pola struktury sops i wykonaj 
        operacje na semaforze semid*/
-    sops -> sem_num = semNum;
-    sops -> sem_op = 1;
-    sops -> sem_flg = 0;
-    return semop(semId, sops);
-
+    sops.sem_num = semNum;
+    sops.sem_op = 1;
+    sops.sem_flg = 0;
+    return semop(semId, &sops, 1);
 }
 
 

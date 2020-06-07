@@ -1,7 +1,8 @@
 CFLAGS = -Wall
 CC = gcc
 
-main: zad2.o
+main:
+	$(CC) -o zad2 zad2.c $(CFLAGS) 
 
 clean:
 	rm -f ./zad2.o ./zad2
